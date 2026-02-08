@@ -294,7 +294,7 @@ def example_comparison_test():
         test_input = f"{len(arr)}\n" + " ".join(map(str, arr))
         output, exec_time, _ = run_solution(test_input)
         
-        result = list(map(int, output.split())) if output and output[0].isdigit() else []
+        result = list(map(int, output.split())) if output and len(output) > 0 and output[0].isdigit() else []
         
         if result == expected:
             print(f"Test {test_num + 1}: ✅ PASSED ({exec_time*1000:.2f} ms)")

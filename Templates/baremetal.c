@@ -76,6 +76,8 @@ int my_strcmp(const char* s1, const char* s2) {
  * ============================================================================ */
 
 #define HEAP_SIZE 4096
+#define ALIGNMENT 4  // 4-byte alignment
+
 static unsigned char heap_memory[HEAP_SIZE];
 static unsigned long heap_index = 0;
 
@@ -87,8 +89,8 @@ static unsigned long heap_index = 0;
  * WARNING: This is a simplified allocator. Cannot free individual blocks.
  */
 void* simple_alloc(unsigned long size) {
-    // Align to 4-byte boundary
-    size = (size + 3) & ~3;
+    // Align to ALIGNMENT-byte boundary
+    size = (size + ALIGNMENT - 1) & ~(ALIGNMENT - 1);
     
     if (heap_index + size > HEAP_SIZE) {
         return (void*)0; // NULL - out of memory

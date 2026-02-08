@@ -165,13 +165,25 @@ static inline int find_first_set(uint32_t x) {
 
 /**
  * @brief Swap two values
+ * @note Uses GCC typeof extension. For portability, use manual swap with temp variable.
  */
+#ifdef __GNUC__
 #define SWAP(a, b) \
     do { \
         typeof(a) __tmp = (a); \
         (a) = (b); \
         (b) = __tmp; \
     } while(0)
+#else
+    // For non-GCC compilers, use manual swap:
+    // type temp = a; a = b; b = temp;
+#define SWAP(a, b) \
+    do { \
+        __typeof__(a) __tmp = (a); \
+        (a) = (b); \
+        (b) = __tmp; \
+    } while(0)
+#endif
 
 /**
  * @brief Sign of a number (-1, 0, or 1)

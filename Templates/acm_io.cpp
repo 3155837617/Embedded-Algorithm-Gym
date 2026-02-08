@@ -38,6 +38,7 @@ inline void fast_io() {
 /**
  * @brief Fast integer input using getchar_unlocked (Linux/Unix)
  * Much faster than cin for reading integers
+ * @note Basic implementation without overflow protection for competitive programming
  */
 #ifdef __linux__
 inline int fast_read_int() {
@@ -51,7 +52,7 @@ inline int fast_read_int() {
         ch = getchar_unlocked();
     }
     
-    // Read digits
+    // Read digits (note: may overflow for very large inputs)
     while (ch >= '0' && ch <= '9') {
         n = (n << 3) + (n << 1) + ch - '0';  // n = n * 10 + digit
         ch = getchar_unlocked();

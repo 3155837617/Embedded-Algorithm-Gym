@@ -34,7 +34,7 @@
     
     #define GET_TIME(t) t = clock()
     #define TIME_DIFF_US(start, end) \
-        (((end - start) * 1000000LL) / CLOCKS_PER_SEC)
+        (((double)(end - start) / CLOCKS_PER_SEC) * 1000000LL)
 #endif
 
 // Global timing variables
